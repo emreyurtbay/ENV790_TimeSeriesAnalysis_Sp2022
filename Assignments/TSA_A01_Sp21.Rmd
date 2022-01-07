@@ -19,7 +19,7 @@ When you have completed the assignment, **Knit** the text and code into a single
 
 Q1. What are your previous experiences with time series analysis, R, and Git? 
 
-> Answer: I have used git and R in many if not all of CS/STA classes I have 
+> Answer: I have used git and R in many if not all of the CS/STA classes I have 
 taken here at Duke. I took a time series class during my undergrad, but that 
 was many years ago.
 
