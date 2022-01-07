@@ -2,6 +2,8 @@
 
 Course repository for Time Series Analysis at Duke University, spring 2022
 
+Name: Emre Yurtbay
+
 
 **Meeting time:** MW 12:00 to 1:15 pm
 
