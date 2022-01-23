@@ -21,7 +21,10 @@ R packages needed for this assignment:"forecast","tseries", and "dplyr". Install
 
 ```{r}
 #Load/install required package here
-
+library(tseries)
+library(forecast)
+library(dplyr)
+library(readxl)
 ```
 
 
@@ -31,7 +34,12 @@ Consider the data provided in the spreadsheet "Table_10.1_Renewable_Energy_Produ
 
 ```{r}
 #Importing data set
+tab <- read_excel("/Users/emreyurtbay/Documents/Duke/env790/ENV790_TimeSeriesAnalysis_Sp2022/Data/Table_10.1_Renewable_Energy_Production_and_Consumption_by_Source.xlsx",skip=10)
+```
 
+```{r}
+# remove the first row
+tab = tab[-1,]
 ```
 
 
