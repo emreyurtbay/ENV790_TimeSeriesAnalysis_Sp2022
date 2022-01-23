@@ -51,8 +51,16 @@ df = tab[, 4:6]
 ```
 
 ```{r}
+df$`Total Biomass Energy Production` = as.numeric(df$`Total Biomass Energy Production`)
+df$`Total Renewable Energy Production` = as.numeric(df$`Total Renewable Energy Production`)
+df$`Hydroelectric Power Consumption` = as.numeric(df$`Hydroelectric Power Consumption`)
+
+```
+
+```{r}
 head(df)
 ```
+
 
 ## Question 2
 Transform your data frame in a time series object and specify the starting point and frequency of the time series using the function ts().
@@ -66,16 +74,25 @@ ts_df <- ts(df, frequency = 12, start = c(1973, 1))
 Compute mean and standard deviation for these three series.
 
 ```{r}
-mean()
-
+mean(ts_df[,c("Total Biomass Energy Production")])
+mean(ts_df[,c("Total Renewable Energy Production")])
+mean(ts_df[,c("Hydroelectric Power Consumption")])
 ```
 
+```{r}
+sd(ts_df[,c("Total Biomass Energy Production")])
+sd(ts_df[,c("Total Renewable Energy Production")])
+sd(ts_df[,c("Hydroelectric Power Consumption")])
+```
 
 ## Question 4
 Display and interpret the time series plot for each of these variables. Try to make your plot as informative as possible by writing titles, labels, etc. For each plot add a horizontal line at the mean of each series in a different color.
 
 ```{r}
-
+plot(ts_df[,c("Total Biomass Energy Production")], type="l", col = "blue", 
+     main = "Total Biomass Energy Production over Time", xlab = "Time", 
+     ylab ="Total Biomass Energy Production")
+abline(h = mean(ts_df[,c("Total Biomass Energy Production")]), col = "red")
 ```
 
 
@@ -91,7 +108,9 @@ Compute the correlation between these three series. Are they significantly corre
 Compute the autocorrelation function from lag 1 up to lag 40 for these three variables. What can you say about these plots? Do the three of them have the same behavior?
 
 ```{r}
-
+ts_df[,c("Total Biomass Energy Production")] %>% 
+  acf(lag.max = 40,
+      main = "Autocorrelation Plot - Biomass")
 ```
 
 
