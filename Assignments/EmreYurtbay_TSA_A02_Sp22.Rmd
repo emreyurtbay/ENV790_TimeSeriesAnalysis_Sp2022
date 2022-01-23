@@ -112,9 +112,19 @@ abline(h = mean(ts_df[,c("Hydroelectric Power Consumption")]), col = "red")
 Compute the correlation between these three series. Are they significantly correlated? Explain your answer.
 
 ```{r}
-
+cor(x = ts_df[,c("Total Biomass Energy Production")], 
+    y = ts_df[,c("Total Renewable Energy Production")])
 ```
 
+```{r}
+cor(x = ts_df[,c("Total Biomass Energy Production")], 
+    y = ts_df[,c("Hydroelectric Power Consumption")])
+```
+
+```{r}
+cor(x = ts_df[,c("Total Renewable Energy Production")], 
+    y = ts_df[,c("Hydroelectric Power Consumption")])
+```
 
 ## Question 6
 Compute the autocorrelation function from lag 1 up to lag 40 for these three variables. What can you say about these plots? Do the three of them have the same behavior?
