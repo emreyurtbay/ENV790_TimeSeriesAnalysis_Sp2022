@@ -94,6 +94,19 @@ plot(ts_df[,c("Total Biomass Energy Production")], type="l", col = "blue",
 abline(h = mean(ts_df[,c("Total Biomass Energy Production")]), col = "red")
 ```
 
+```{r}
+plot(ts_df[,c("Total Renewable Energy Production")], type="l", col = "blue", 
+     main = "Total Renewable Energy Production over Time", xlab = "Time", 
+     ylab ="Total Renewable Energy Production")
+abline(h = mean(ts_df[,c("Total Renewable Energy Production")]), col = "red")
+```
+
+```{r}
+plot(ts_df[,c("Hydroelectric Power Consumption")], type="l", col = "blue", 
+     main = "Hydroelectric Power Consumption", xlab = "Time", 
+     ylab ="Hydroelectric Power Consumption")
+abline(h = mean(ts_df[,c("Hydroelectric Power Consumption")]), col = "red")
+```
 
 ## Question 5
 Compute the correlation between these three series. Are they significantly correlated? Explain your answer.
