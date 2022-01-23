@@ -47,15 +47,18 @@ tab = tab[-1,]
 You will work only with the following columns: Total Biomass Energy Production, Total Renewable Energy Production, Hydroelectric Power Consumption. Create a data frame structure with these three time series only. Use the command head() to verify your data.
 
 ```{r}
-
+df = tab[, 4:6]
 ```
 
+```{r}
+head(df)
+```
 
 ## Question 2
 Transform your data frame in a time series object and specify the starting point and frequency of the time series using the function ts().
 
 ```{r}
-
+ts_df <- ts(df, frequency = 12, start = c(1973, 1))
 ```
 
 
@@ -63,6 +66,7 @@ Transform your data frame in a time series object and specify the starting point
 Compute mean and standard deviation for these three series.
 
 ```{r}
+mean()
 
 ```
 
