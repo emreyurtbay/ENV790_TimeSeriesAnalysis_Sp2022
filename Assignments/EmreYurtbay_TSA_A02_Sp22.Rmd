@@ -126,6 +126,14 @@ cor(x = ts_df[,c("Total Renewable Energy Production")],
     y = ts_df[,c("Hydroelectric Power Consumption")])
 ```
 
+The series "Total Biomass Energy Production" is highly positively correlated
+with "Total Renewable Energy Production", with a correlation of 0.92. This means
+as  "Total Biomass Energy Production" increases, "Total Renewable Energy
+Production" increases with it. Neither of the previous 2 series is particularly 
+strongly correlated with "Hydroelectric Power Consumption," as the correlations
+are fairly close to 0.
+
+
 ## Question 6
 Compute the autocorrelation function from lag 1 up to lag 40 for these three variables. What can you say about these plots? Do the three of them have the same behavior?
 
@@ -135,6 +143,29 @@ ts_df[,c("Total Biomass Energy Production")] %>%
       main = "Autocorrelation Plot - Biomass")
 ```
 
+```{r}
+ts_df[,c("Total Renewable Energy Production")] %>% 
+  acf(lag.max = 40,
+      main = "Autocorrelation Plot - Renewable")
+```
+
+```{r}
+ts_df[,c("Hydroelectric Power Consumption")] %>% 
+  acf(lag.max = 40,
+      main = "Autocorrelation Plot - Hydroelectric")
+```
+
+The acf plots for Biomass and Renewable look very similar. Both show very 
+strong autocorrelations for lags up to 40; we see a slow decrease in 
+autocorrelation as the lag increases. This means autocorrelations for 
+small lags are in general higher than autocorrelations for large lags. 
+The Renewable Energy acf shows a 
+scalloped shape in the plot that the Biomass acf does not, which indicates 
+perhaps some weak seasonality in the Renewable Energy series. The acf for 
+Hydroelectric looks very different from the other 2; we see both positive and 
+negative autocorrelations in the acf for Hydroelectric. The shape of the acf
+plot for Hydroelectric is oscillating and dampening, indicating a reasonable 
+amount of seasonality. 
 
 ## Question 7
 Compute the partial autocorrelation function from lag 1 to lag 40 for these three variables. How these plots differ from the ones in Q6?
@@ -145,4 +176,20 @@ ts_df[,c("Total Biomass Energy Production")] %>%
       main = "PACF Plot - Biomass")
 ```
 
+```{r}
+ts_df[,c("Total Renewable Energy Production")] %>% 
+  pacf(lag.max = 40,
+      main = "PACF Plot - Renewable")
+```
+
+```{r}
+ts_df[,c("Hydroelectric Power Consumption")] %>% 
+  pacf(lag.max = 40,
+      main = "PACF Plot - Hydroelectric")
+```
+
+The PACF plots do look different from the ACF plots because when we calculate
+PACF, we remove the effect of intermediate lags. We actually see some negative
+values for PACF in the Biomass and Renewable series, while the ACF for the 
+first 40 lags were all positive.
 
