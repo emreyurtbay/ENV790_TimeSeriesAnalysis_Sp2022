@@ -23,6 +23,7 @@ It's useful to designate one code chunk to load packages on the beginning of the
 ```{r package, include=FALSE}
 library(lubridate)
 library(ggplot2)
+library(forecast) #added for Acf and Pacf functions
 
 ```
 
@@ -38,18 +39,9 @@ For this first example we will import water inflow data for reservoirs in Brazil
 ```{r}
 #Importing time series data from text file
 #I am calling it raw for now because it's data as it is in the file
-<<<<<<< HEAD:Lessons/03_Lesson_ImportData_ACF_PACF_emre.Rmd
-raw_inflow_data <- read.table(file="/Users/emreyurtbay/Documents/Duke/env790/ENV790_TimeSeriesAnalysis_Sp2022/Data/inflowtimeseries.txt",header=FALSE,skip=0)
-=======
 
-<<<<<<< HEAD:Lessons/03_Lesson_ImportData_ACF_PACF_emre.Rmd
-#Option 1: import using path
-raw_inflow_data <- read.table(file="/Users/lmm89/OneDrive/Duke_University/9_Spring2022/ENV790_TSA/Git_Repo/ENV790_TimeSeriesAnalysis_Sp2022_v2/Data/inflowtimeseries.txt",header=FALSE,skip=0)
->>>>>>> 8b135a93d8d57f27b92bc45ac221d03c82d0c271:Lessons/03_Lesson_ImportData_ACF_PACF.Rmd
-=======
 #Option 1: import using absolute path
 #raw_inflow_data <- read.table(file="/Users/lmm89/OneDrive/Duke_University/9_Spring2022/ENV790_TSA/Git_Repo/ENV790_TimeSeriesAnalysis_Sp2022_v2/Data/inflowtimeseries.txt",header=FALSE,skip=0)
->>>>>>> c1f582e4f1e43afa1a86642fe6944ac1b42ab4ff:Lessons/03_Lesson_ImportData_ACF_PACF.Rmd
 
 #Option 2: import using shortcut "." or ".." or relative path
 # the "." will point to the folder set as current directory
@@ -164,4 +156,22 @@ ts_inflow_data
 ```
 
 Note that ts_inflow_data has information on start, end and frequency. We will discuss frequency in future lectures, for now let's just keep the default value for frequency which is 1.
+
+## Plotting ACF and PACF
+
+There are multiple ways to get acf and pacf plots in R. The default package "stats" have the functions acf() and pacf(). Another option is with the functions Acf() and Pacf() from package "forecast". Package forecast is not a default package. So you need to install and load it on the beginning of your scripts. 
+
+```{r acf}
+# Option 1: The function acf() and pacf() is from package "stats"
+HP1_acf=acf(ts_inflow_data[,1],lag.max=60, type="correlation", plot=TRUE)
+
+HP1_pacf=pacf(ts_inflow_data[,1],lag.max=60, plot=TRUE)
+
+#Option 2: Computing ACF and PACF with package "forecast"
+
+#The next line will output a plot since we have plot=TRUE and also store the acf values in the object
+HP1_acf=Acf(ts_inflow_data[,1],lag.max=60, type="correlation", plot=TRUE)
+
+HP1_pacf=Pacf(ts_inflow_data[,1],lag.max=60, plot=TRUE)
+```
 
