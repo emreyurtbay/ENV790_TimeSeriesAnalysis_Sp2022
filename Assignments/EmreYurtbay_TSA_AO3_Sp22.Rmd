@@ -125,14 +125,12 @@ reg_bio=lm(df$`Total Biomass Energy Production`~t)
 summary(reg_bio)
 beta0_bio=as.numeric(reg_bio$coefficients[1]) 
 beta1_bio=as.numeric(reg_bio$coefficients[2]) 
-
-#Let's plot the time series with its trend line
-#ggplot(df, aes(x=Month, y=`Total Biomass Energy Production`)) +
- #           geom_line(color="blue") +
-  #          ylab("Total Biomass Energy Production") +
-   #         geom_smooth(color="red",method="lm") + 
-  #ggtitle("Trend of Total Biomass Energy Production")
 ```
+
+For biomass, the y intercept is 134.8 and the slope is 0.4744. This means that
+the predicted value of biomass energy production at the time we began data 
+collection, January 1973, is 134.8. We expect that biomass energy production
+increases at a rate of 0.47 units per month.
 
 ```{r}
 #Fit a linear trend to TS Biomass
@@ -142,6 +140,11 @@ beta0_r=as.numeric(reg_r$coefficients[1])
 beta1_r=as.numeric(reg_r$coefficients[2]) 
 ```
 
+For renewable energy, the y intercept is 323.18 and the slope is 0.88. This means that
+the predicted value of renewable energy production at the time we began data 
+collection, January 1973, is 323.18. We expect that renewable energy production
+increases at a rate of 0.88 units per month.
+
 ```{r}
 #Fit a linear trend to TS Biomass
 reg_he=lm(df$`Hydroelectric Power Consumption`~t)  
@@ -150,8 +153,74 @@ beta0_he=as.numeric(reg_he$coefficients[1])
 beta1_he=as.numeric(reg_he$coefficients[2]) 
 ```
 
+For hydroelectric power consumption, the y intercept is 259.18 and the 
+slope is 0.88. This means that
+the predicted value of hydroelectric power consumption at the time we began data 
+collection, January 1973, is 259.18. We expect that hydroelectric power consumption
+decreases at a rate of 0.079 units per month.
+
 ### Q4
 Use the regression coefficients from Q3 to detrend the series. Plot the detrended series and compare with the plots from Q1. What happened? Did anything change?
+
+```{r}
+#remove the trend from series
+detrend_bio <- df$`Total Biomass Energy Production`-(beta0_bio+beta1_bio*t)
+
+#Understanding what we did
+ggplot(df, aes(x=Month, y=`Total Biomass Energy Production`)) +
+            geom_line(color="blue") +
+            geom_smooth(color="red",method="lm") +
+            geom_line(aes(y=detrend_bio), col="green")+
+            geom_smooth(aes(y=detrend_bio),color="orange",method="lm")+
+  ggtitle("Raw Total BEP (blue) vs. Detrended Total BEP (green)")
+
+```
+
+For the biomass data, we see a difference between the raw series and the 
+detrended series. The raw series has a strong increasing trend, while the 
+detrended series no longer does. However, the overall "structure" (local peaks and 
+troughs) of the raw series 
+and the detrended series do indeed look very similar. 
+
+```{r}
+#remove the trend from series
+detrend_r <- df$`Hydroelectric Power Consumption`-(beta0_r+beta1_r*t)
+
+#Understanding what we did
+ggplot(df, aes(x=Month, y=`Total Renewable Energy Production`)) +
+            geom_line(color="blue") +
+            geom_smooth(color="red",method="lm") +
+            geom_line(aes(y=detrend_r), col="green")+
+            geom_smooth(aes(y=detrend_r),color="orange",method="lm")+
+  ggtitle("Raw Total REP (blue) vs. Detrended Total REP (green)")
+
+```
+
+For the renewable energy data, we see a difference between the raw series and the 
+detrended series. The raw series has a strong increasing trend, while the 
+detrended series no longer does. However, the overall "structure" (local peaks and 
+troughs) of the raw series 
+and the detrended series do indeed look very similar. 
+
+```{r}
+#remove the trend from series
+detrend_he <- df$`Hydroelectric Power Consumption`-(beta0_he+beta1_he*t)
+
+#Understanding what we did
+ggplot(df, aes(x=Month, y=`Hydroelectric Power Consumption`)) +
+            geom_line(color="blue") +
+            geom_smooth(color="red",method="lm") +
+            geom_line(aes(y=detrend_he), col="green")+
+            geom_smooth(aes(y=detrend_he),color="orange",method="lm")+
+  ggtitle("Raw Total HEC (blue) vs. Detrended Total HEC (green)")
+
+```
+
+The detrended HEC looks very similar to the raw HEC, but the detrended HEC is 
+shifted downward such that the mean is approximately 0. The green series does not 
+show the weak negative trend present in the blue series. the overall "structure", 
+as it were, of the raw series 
+and the detrended series do indeed look very similar.
 
 ### Q5
 Plot ACF and PACF for the detrended series and compare with the plots from Q1. Did the plots change? How?
