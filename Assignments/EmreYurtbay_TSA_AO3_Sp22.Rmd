@@ -46,11 +46,11 @@ tab <- read_excel("/Users/emreyurtbay/Documents/Duke/env790/ENV790_TimeSeriesAna
 tab = tab[-1,]
 
 # create data frame and ts object for the required series
-df = tab[, 4:6]
+df = tab[,c(1, 4:6)]
 df$`Total Biomass Energy Production` = as.numeric(df$`Total Biomass Energy Production`)
 df$`Total Renewable Energy Production` = as.numeric(df$`Total Renewable Energy Production`)
 df$`Hydroelectric Power Consumption` = as.numeric(df$`Hydroelectric Power Consumption`)
-ts_df <- ts(df, frequency = 12, start = c(1973, 1))
+ts_df <- ts(df[, 2:4], frequency = 12, start = c(1973, 1))
 ```
 
 
@@ -109,11 +109,47 @@ Total Biomass Energy Production seems to have a strong positive trend, though
 it's unclear to me whether that trend is linear or not. Similarly, Total 
 Renewable Energy Production also seems to have a strong postive trend, but 
 again, it's unclear to me whether that trend is linear or not. Hydroelectric 
-Power Consumption doesn't seem to have a clear trend.
+Power Consumption doesn't seem to have a clear strong trend, but perhaps there
+is a very weak negative trend.
 
 ### Q3
 Use the *lm()* function to fit a linear trend to the three time series. Ask R to print the summary of the regression. Interpret the regression output, i.e., slope and intercept. Save the regression coefficients for further analysis.
- 
+
+```{r}
+#Create vector t
+nobs <- nrow(df)
+t <- c(1:nobs)
+
+#Fit a linear trend to TS Biomass
+reg_bio=lm(df$`Total Biomass Energy Production`~t)  
+summary(reg_bio)
+beta0_bio=as.numeric(reg_bio$coefficients[1]) 
+beta1_bio=as.numeric(reg_bio$coefficients[2]) 
+
+#Let's plot the time series with its trend line
+#ggplot(df, aes(x=Month, y=`Total Biomass Energy Production`)) +
+ #           geom_line(color="blue") +
+  #          ylab("Total Biomass Energy Production") +
+   #         geom_smooth(color="red",method="lm") + 
+  #ggtitle("Trend of Total Biomass Energy Production")
+```
+
+```{r}
+#Fit a linear trend to TS Biomass
+reg_r=lm(df$`Total Renewable Energy Production`~t)  
+summary(reg_r)
+beta0_r=as.numeric(reg_r$coefficients[1]) 
+beta1_r=as.numeric(reg_r$coefficients[2]) 
+```
+
+```{r}
+#Fit a linear trend to TS Biomass
+reg_he=lm(df$`Hydroelectric Power Consumption`~t)  
+summary(reg_he)
+beta0_he=as.numeric(reg_he$coefficients[1]) 
+beta1_he=as.numeric(reg_he$coefficients[2]) 
+```
+
 ### Q4
 Use the regression coefficients from Q3 to detrend the series. Plot the detrended series and compare with the plots from Q1. What happened? Did anything change?
 
