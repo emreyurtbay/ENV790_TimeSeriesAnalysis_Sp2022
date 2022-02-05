@@ -31,8 +31,28 @@ R packages needed for this assignment:"forecast","tseries", and "Kendall". Insta
 
 ```{r}
 #Load/install required package here
-
+library(lubridate)
+library(ggplot2)
+library(forecast)
+library(Kendall)
+library(tseries)
+library(readxl)
 ```
+
+```{r}
+tab <- read_excel("/Users/emreyurtbay/Documents/Duke/env790/ENV790_TimeSeriesAnalysis_Sp2022/Data/Table_10.1_Renewable_Energy_Production_and_Consumption_by_Source.xlsx",skip=10)
+
+# remove the first row
+tab = tab[-1,]
+
+# create data frame and ts object for the required series
+df = tab[, 4:6]
+df$`Total Biomass Energy Production` = as.numeric(df$`Total Biomass Energy Production`)
+df$`Total Renewable Energy Production` = as.numeric(df$`Total Renewable Energy Production`)
+df$`Hydroelectric Power Consumption` = as.numeric(df$`Hydroelectric Power Consumption`)
+ts_df <- ts(df, frequency = 12, start = c(1973, 1))
+```
+
 
 ##Trend Component
 
