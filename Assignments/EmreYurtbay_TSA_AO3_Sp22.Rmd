@@ -91,7 +91,7 @@ ts_df[,c("Total Renewable Energy Production")] %>%
 ```{r}
 par(mfrow = c(1, 3))
 plot(ts_df[,c("Hydroelectric Power Consumption")], type="l", col = "blue", 
-     main = "HEP Over Time", xlab = "Time", 
+     main = "HEC Over Time", xlab = "Time", 
      ylab ="Hydroelectric Power Consumption")
 abline(h = mean(ts_df[,c("Hydroelectric Power Consumption")]), col = "red")
 ts_df[,c("Hydroelectric Power Consumption")] %>% 
@@ -99,11 +99,17 @@ ts_df[,c("Hydroelectric Power Consumption")] %>%
       main = "ACF Plot - Hydroelectric")
 ts_df[,c("Hydroelectric Power Consumption")] %>% 
   pacf(lag.max = 40,
-      main = "PACF Plot - Hydroelectric")
+      main = "PACF - Hydroelectric")
 ```
 
 ### Q2
 From the plot in Q1, do the series Total Biomass Energy Production, Total Renewable Energy Production, Hydroelectric Power Consumption appear to have a trend? If yes, what kind of trend?
+
+Total Biomass Energy Production seems to have a strong positive trend, though 
+it's unclear to me whether that trend is linear or not. Similarly, Total 
+Renewable Energy Production also seems to have a strong postive trend, but 
+again, it's unclear to me whether that trend is linear or not. Hydroelectric 
+Power Consumption doesn't seem to have a clear trend.
 
 ### Q3
 Use the *lm()* function to fit a linear trend to the three time series. Ask R to print the summary of the regression. Interpret the regression output, i.e., slope and intercept. Save the regression coefficients for further analysis.
