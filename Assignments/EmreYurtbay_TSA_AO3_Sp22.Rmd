@@ -54,7 +54,7 @@ ts_df <- ts(df[, 2:4], frequency = 12, start = c(1973, 1))
 ```
 
 
-##Trend Component
+## Trend Component
 
 ### Q1
 Create a plot window that has one row and three columns. And then for each object on your data frame, fill the plot window with time series plot, ACF and PACF. You may use the some code form A2, but I want all three plots on the same window this time. (Hint: use par() function)
