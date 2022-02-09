@@ -106,11 +106,12 @@ ts_df[,c("Hydroelectric Power Consumption")] %>%
 From the plot in Q1, do the series Total Biomass Energy Production, Total Renewable Energy Production, Hydroelectric Power Consumption appear to have a trend? If yes, what kind of trend?
 
 Total Biomass Energy Production seems to have a strong positive trend, though 
-it's unclear to me whether that trend is linear or not. Similarly, Total 
-Renewable Energy Production also seems to have a strong postive trend, but 
-again, it's unclear to me whether that trend is linear or not. Hydroelectric 
+it's unclear to me whether that trend is linear or not, but my judgment 
+tells me its probably linear. Similarly, Total 
+Renewable Energy Production also seems to have a strong positive trend, with a 
+linear-like trend. Hydroelectric 
 Power Consumption doesn't seem to have a clear strong trend, but perhaps there
-is a very weak negative trend.
+is a very weak, approximately linear, negative trend.
 
 ### Q3
 Use the *lm()* function to fit a linear trend to the three time series. Ask R to print the summary of the regression. Interpret the regression output, i.e., slope and intercept. Save the regression coefficients for further analysis.
@@ -218,7 +219,7 @@ ggplot(df, aes(x=Month, y=`Hydroelectric Power Consumption`)) +
 
 The detrended HEC looks very similar to the raw HEC, but the detrended HEC is 
 shifted downward such that the mean is approximately 0. The green series does not 
-show the weak negative trend present in the blue series. the overall "structure", 
+show the weak negative trend present in the blue series. The overall "structure", 
 as it were, of the raw series 
 and the detrended series do indeed look very similar.
 
