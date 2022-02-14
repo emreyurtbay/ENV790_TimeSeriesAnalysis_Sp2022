@@ -70,7 +70,8 @@ ggplot(data.frame(Date = df$Month[-1], Value = diffed),
   )
 ```
 
-This differencing has seemed to remove the trend. 
+This differencing has seemed to remove the trend; the values oscillate around 
+0, without any discernable systematic increase or decrease.
 
 ### Q2
 
@@ -99,7 +100,10 @@ ggplot(df, aes(x=Month, y=`Total Renewable Energy Production`)) +
   ggtitle("Raw Total REP (blue) vs. Detrended Total REP (green)")
 ```
 
-The differenced series and the detrended series look different.
+The differenced series and the detrended series look different. For the 
+differenced series,  the values oscillate around 
+0, without any discernable systematic increase or decrease. For the detrended
+series, there is more drift and "stickiness", as it were, in our series.
 
 ### Q3
 Create a data frame with 4 columns: month, original series, detrended by Regression Series and differenced series. Make sure you properly name all columns. Also note that the differenced series will have only 584 rows because you loose the first observation when differencing. Therefore, you need to remove the first observations for the original series and the detrended by regression series to build the new data frame.
