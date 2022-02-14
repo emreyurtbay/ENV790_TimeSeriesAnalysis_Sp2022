@@ -21,8 +21,11 @@ R packages needed for this assignment: "xlsx" or "readxl", "ggplot2", "forecast"
 
 ```{r}
 #Load/install required package here
-
-
+library(readxl)
+library(ggplot2)
+library(forecast)
+library(Kendall)
+library(tseries)
 ```
 
 ## Questions 
@@ -32,8 +35,13 @@ Consider the same data you used for A3 from the spreadsheet "Table_10.1_Renewabl
 
 ```{r}
 #Importing data set - using xlsx package
+tab <- read_excel("/Users/emreyurtbay/Documents/Duke/env790/ENV790_TimeSeriesAnalysis_Sp2022/Data/Table_10.1_Renewable_Energy_Production_and_Consumption_by_Source.xlsx",skip=10)
 
-
+# remove the first row
+tab = tab[-1,]
+df = tab[,c(1, 5)]
+df$`Total Renewable Energy Production` = as.numeric(df$`Total Renewable Energy Production`)
+ts_df <- ts(df[, 2], frequency = 12, start = c(1973, 1))
 ```
 
 
