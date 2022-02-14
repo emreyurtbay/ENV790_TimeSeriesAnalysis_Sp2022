@@ -136,7 +136,12 @@ Discussion: Why the missing values??
 ```{r}
 
 #Ex5: Try to reproduce the trend component from decompose().
-
+order <- 6
+rep_trend <- array(NA, length(clean_wind_data))
+for (t in (order+1): (length(clean_wind_data)-(order))){
+  rep_trend[t] = mean(clean_wind_data[(t-order):(t+order)])
+}
+ggplot(data.frame(Date = as.Date(wind_data$DATE), as.numeric(wind_trend)))
 #Ex6: Try to reproduce the seasonal component from decompose().
 
 
