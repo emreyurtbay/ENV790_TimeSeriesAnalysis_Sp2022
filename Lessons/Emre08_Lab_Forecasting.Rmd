@@ -122,8 +122,10 @@ Ex 2: Which models could be used to forecast the seasonal temperature series?
 
 
 ```{r}
-
-
+SARIMA_autofit <- auto.arima(BR_Temp_ts)
+print(SARIMA_autofit)
+SARIMA_forecast <- forecast::forecast(object = SARIMA_autofit, h = 36)
+plot(SARIMA_forecast)
 
 
 ```
