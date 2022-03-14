@@ -4,9 +4,6 @@ subtitle: "Assignment 6 - Due date 03/16/22"
 author: "Emre Yurtbay"
 output: pdf_document
 geometry: margin=2.54cm
-header-includes:
-  - \usepackage{enumerate}
-  - \usepackage{enumitem}
 ---
   
 ## Directions
@@ -35,19 +32,15 @@ library(forecast)
 ## Q1
 Describe the important characteristics of the sample autocorrelation function (ACF) plot and the partial sample autocorrelation function (PACF) plot for the following models: 
 
-\begin{enumerate}[label=(\alph*)]
 
-\item AR(2)
-
+### AR(2)
 > Answer: In the AR(2) process, we should expect to see a rapidly decaying 
 ACF plot and no significant spikes after 2 lags in the PACF plot
 
-\item MA(1)
+###  MA(1)
 
 > Answer: In the MA(1) process, we should expect to see a rapidly decaying 
 PACF plot and no significant spikes after 1 lag in the ACF plots
-
-\end{enumerate}
 
 ## Q2
 Recall that the non-seasonal ARIMA is described by three parameters ARIMA$(p,d,q)$ where $p$ is the order of the autoregressive component, $d$ is the number of times the series need to be differenced to obtain stationarity and $q$ is the order of the moving average component. If we don't need to difference the series, we don't need to specify the "I" part and we can use the short version, i.e., the ARMA$(p,q)$. Consider three models: ARMA(1,0), ARMA(0,1) and ARMA(1,1) with parameters $\phi=0.6$ and $\theta= 0.9$. The $\phi$ refers to the AR coefficient and the $\theta$ refers to the MA coefficient. Use R to generate $n=100$ observations from each of these three models
@@ -60,9 +53,8 @@ arma11 = arima.sim(n = 100, list(ar = c(0.6), ma = c(0.9)))
 ```
 
 
-\begin{enumerate}[label=(\alph*)]
 
-\item Plot the sample ACF for each of these models in one window to facilitate comparison (Hint: use command $par(mfrow=c(1,3))$ that divides the plotting window in three columns).  
+###  Plot the sample ACF for each of these models in one window to facilitate comparison (Hint: use command $par(mfrow=c(1,3))$ that divides the plotting window in three columns).  
 
 ```{r}
 par(mfrow = c(1, 3))
@@ -78,7 +70,7 @@ arma11 %>%
 ```
 
 
-\item Plot the sample PACF for each of these models in one window to facilitate comparison.  
+###  Plot the sample PACF for each of these models in one window to facilitate comparison.  
 
 ```{r}
 par(mfrow = c(1, 3))
@@ -93,7 +85,7 @@ arma11 %>%
       main = "ARMA(1, 1)")
 ```
 
-\item Look at the ACFs and PACFs. Imagine you had these plots for a data set and you were asked to identify the model, i.e., is it AR, MA or ARMA and the order of each component. Would you be identify them correctly? Explain your answer.
+### Look at the ACFs and PACFs. Imagine you had these plots for a data set and you were asked to identify the model, i.e., is it AR, MA or ARMA and the order of each component. Would you be identify them correctly? Explain your answer.
 
 > Answer: For the ARMA(1, 0), we should expect to see an exponetially tapering 
 ACF plot and no significant spikes after 1 lag in the PACF plot. We seem 
@@ -105,7 +97,7 @@ ACF and PACF seem to just tail off, but they also
 seem to resemble those of the ARMA(0, 1), so it would be hard 
 to tell that the data generating process is an ARMA(1, 1). 
 
-\item Compare the ACF and PACF values R computed with the theoretical values you provided for the coefficients. Do they match? Explain your answer.
+### Compare the ACF and PACF values R computed with the theoretical values you provided for the coefficients. Do they match? Explain your answer.
 
 
 ```{r}
@@ -124,7 +116,7 @@ the formula $\phi = \theta / (1 + \theta^2)$, we get a value for $\theta = 0.74$
 which is a lower than the truth. 
 
 
-\item Increase number of observations to $n=1000$ and repeat parts (a)-(d).
+###  Increase number of observations to $n=1000$ and repeat parts (a)-(d).
 
 ```{r}
 set.seed(100)
@@ -181,23 +173,19 @@ is 0.6, and the computed value is 0.57, which again is pretty close. Using
 the formula $\phi = \theta / (1 + \theta^2)$, we get a value for $\theta = 0.8$, 
 which is a closer to the truth than before. 
 
-\end{enumerate}
 
 ## Q3
 
 Consider the ARIMA model $y_t=0.7*y_{t-1}-0.25*y_{t-12}+a_t-0.1*a_{t-1}$
 
-\begin{enumerate}[label=(\alph*)]
-
-\item Identify the model using the notation ARIMA$(p,d,q)(P,D,Q)_ s$, i.e., identify the integers $p,d,q,P,D,Q,s$ (if possible) from the equation.
+###  Identify the model using the notation ARIMA$(p,d,q)(P,D,Q)_ s$, i.e., identify the integers $p,d,q,P,D,Q,s$ (if possible) from the equation.
 
 $$ARIMA(1, 0, 1)(1, 0, 0)_{12}$$
 
-\item Also from the equation what are the values of the parameters, i.e., model coefficients. 
+###  Also from the equation what are the values of the parameters, i.e., model coefficients. 
 
 $$\phi_1 = 0.7, \theta_1 = 0.1, \Phi = -0.25$$
 
-\end{enumerate}
 ## Q4
 
 Plot the ACF and PACF of a seasonal ARIMA$(0, 1)\times(1, 0)_{12}$ model with $\phi =0 .8$ and $\theta = 0.5$ using R. The $12$ after the bracket tells you that $s=12$, i.e., the seasonal lag is 12, suggesting monthly data whose behavior is repeated every 12 months. You can generate as many observations as you like. Note the Integrated part was omitted. It means the series do not need differencing, therefore $d=D=0$. Plot ACF and PACF for the simulated data. Comment if the plots are well representing the model you simulated, i.e., would you be able to identify the order of both non-seasonal and seasonal components from the plots? Explain.
