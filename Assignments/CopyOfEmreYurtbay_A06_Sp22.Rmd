@@ -196,6 +196,7 @@ $$
 
 
 ```{r}
+set.seed(999)
 library(sarima)
 x = sim_sarima(n = 10000, model= list(ma = 0.5, sar = 0.8, nseasons=12))
 ```
