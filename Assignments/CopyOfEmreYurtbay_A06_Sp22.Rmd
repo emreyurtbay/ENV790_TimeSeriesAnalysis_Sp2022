@@ -34,13 +34,13 @@ Describe the important characteristics of the sample autocorrelation function (A
 
 
 ### AR(2)
-> Answer: In the AR(2) process, we should expect to see a rapidly decaying 
+> Answer: In the AR(2) process, we should expect to see a exponentially decaying 
 ACF plot and no significant spikes after 2 lags in the PACF plot
 
 ###  MA(1)
 
-> Answer: In the MA(1) process, we should expect to see a rapidly decaying 
-PACF plot and no significant spikes after 1 lag in the ACF plots
+> Answer: In the MA(1) process, we should expect to see a exponentially decaying 
+PACF plot and no significant spikes after 1 lag in the ACF plot
 
 ## Q2
 Recall that the non-seasonal ARIMA is described by three parameters ARIMA$(p,d,q)$ where $p$ is the order of the autoregressive component, $d$ is the number of times the series need to be differenced to obtain stationarity and $q$ is the order of the moving average component. If we don't need to difference the series, we don't need to specify the "I" part and we can use the short version, i.e., the ARMA$(p,q)$. Consider three models: ARMA(1,0), ARMA(0,1) and ARMA(1,1) with parameters $\phi=0.6$ and $\theta= 0.9$. The $\phi$ refers to the AR coefficient and the $\theta$ refers to the MA coefficient. Use R to generate $n=100$ observations from each of these three models
@@ -92,7 +92,7 @@ ACF plot and no significant spikes after 1 lag in the PACF plot. We seem
 to see this behavior, but its not entirely clear. For the ARMA(0, 1), we should expect to see an exponetially tapering  
 PACF plot and no significant spikes after 1 lag in the ACF plots. Again, this looks
 about like what is happening but I think we need more data to tell. Its a bit 
-harder to tell will the PACF, but the ACF behavior looks correct. The ARMA(1,1) 
+harder to tell with the PACF, but the ACF behavior looks correct. The ARMA(1,1) 
 ACF and PACF seem to just tail off, but they also
 seem to resemble those of the ARMA(0, 1), so it would be hard 
 to tell that the data generating process is an ARMA(1, 1). 
@@ -110,8 +110,8 @@ arma01 %>%
   Pacf(lag.max = 5,plot = F)
 ```
 
-> Answer: $\phi$ should be the lag 1 partial autocorrelation . The theoretical value 
-is 0.6, and the computed value is 0.604, so they are actually pretty close. Using 
+> Answer: For the arma(1, 0), $\phi$ should be the lag 1 partial autocorrelation . The theoretical value
+is 0.6, and the computed value is 0.604, so they are actually pretty close. For the ARMA(0, 1) Using 
 the formula $\phi = \theta / (1 + \theta^2)$, we get a value for $\theta = 0.74$, 
 which is a lower than the truth. 
 
@@ -167,7 +167,7 @@ ACF plot and no significant spikes after 1 lag in the PACF plot. We seem
 to see this behavior better here. For the ARMA(0, 1), we should expect to see an exponetially tapering  
 PACF plot and no significant spikes after 1 lag in the ACF plots. This looks good 
 as well. The ARMA(1,1) 
-ACF and PACF seem to just tail off, governed by the AR and MA coefficients, but 
+ACF and PACF seem to just tail off, governed by the AR and MA orders and coefficients, but 
 its always difficult to tell an ARMA(1, 1) based off the plots. $\phi$ should be the lag 1 partial autocorrelation . The theoretical value 
 is 0.6, and the computed value is 0.57, which again is pretty close. Using 
 the formula $\phi = \theta / (1 + \theta^2)$, we get a value for $\theta = 0.8$, 
@@ -184,7 +184,7 @@ $$ARIMA(1, 0, 1)(1, 0, 0)_{12}$$
 
 ###  Also from the equation what are the values of the parameters, i.e., model coefficients. 
 
-$$\phi_1 = 0.7, \theta_1 = 0.1, \Phi = -0.25$$
+$$\phi_1 = 0.7, \theta_1 = 0.1, \phi_{12} = -0.25$$
 
 ## Q4
 
@@ -214,7 +214,7 @@ x %>%
 ```
 
 We see the peaks at seasonal spots in both graphs- around multiples of 12, so 
-this is promising. Based on the decaying ACF, I would be able to tell the non 
+this is promising. Based on the ACF, I would be able to tell the non 
 seasonal AR order is 0, but the cutoff behavior at the beginning of
 the ACF would point the the MA order maybe being 1. The cutoff behavior after 
 seasonal spikes on the PACF makes it harder to tell the SAR order. Using PACF
